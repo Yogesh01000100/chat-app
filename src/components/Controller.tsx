@@ -10,7 +10,7 @@ const Controller: React.FC<ControllerProps> = ({
   onSubmit,
 }) => {
   return (
-    <div className="flex items-center justify-center space-x-2 p-2 w-full max-w-xl mx-auto mb-5">
+    <div className="flex items-center justify-center lg:w-[75%] space-x-3 px-5 py-5 mx-auto">
       <input
         value={data}
         placeholder="Type a Message"
