@@ -3,6 +3,7 @@ import { AppDispatch, RootState } from "../state/store";
 import { changeType } from "../state/slice";
 import { useEffect, useState } from "react";
 import { User } from "../types/type";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const Header: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -24,19 +25,24 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="flex items-center justify-between bg-gray-200 border-b-2 border-black p-4">
-      <div className="flex items-center space-x-2">
-        <span className="font-medium text-gray-700">Chatting with:</span>
-        {otherUsers.map((user) => (
-          <span key={user.id} className="font-medium text-blue-600">
-            {user.name}
-          </span>
-        ))}
+    <header className="flex items-center justify-between bg-sky-900 border-b-2 border-black p-3">
+      <div className="flex items-center justify-center space-x-2">
+        <div className="text-4xl mb-1 text-white">
+          <AccountCircleIcon fontSize="inherit" />
+        </div>
+        <div className="flex flex-col text-white">
+          {otherUsers.map((user) => (
+            <div key={user.id} className="font-medium">
+              {user.name}
+            </div>
+          ))}
+          <div className="text-sm">online</div>
+        </div>
       </div>
 
       <button
         onClick={handleChat}
-        className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 transition-colors duration-200 border border-black"
+        className="px-6 py-2 bg-slate-200 text-black font-semibold rounded-2xl hover:bg-slate-100 border-2 border-black"
       >
         {chatType}
       </button>

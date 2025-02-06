@@ -8,7 +8,7 @@ const initialState: Chat = {
         {
             id: Date.now().toString(),
             content: "Hey there, how's your day going?",
-            sender: { id: '2', name: 'Ram' },
+            sender: { id: '2', name: 'Sainath' },
             timestamp: Date.now(),
         },
         {
@@ -20,7 +20,7 @@ const initialState: Chat = {
         {
             id: (Date.now() + 2).toString(),
             content: "That sounds awesome! Can't wait to see it.",
-            sender: { id: '2', name: 'Ram' },
+            sender: { id: '2', name: 'Sainath' },
             timestamp: Date.now(),
         },
         {
@@ -32,13 +32,13 @@ const initialState: Chat = {
         {
             id: (Date.now() + 4).toString(),
             content: "Perfect, looking forward to it!",
-            sender: { id: '2', name: 'Ram' },
+            sender: { id: '2', name: 'Sainath' },
             timestamp: Date.now(),
         },
     ],
     users: [
         { id: '1', name: 'You' },
-        { id: '2', name: 'Ram' },
+        { id: '2', name: 'Sainath' },
     ],
     currentUser: { id: '1', name: 'You' },
 };
@@ -67,10 +67,17 @@ const slice = createSlice({
 
             state.messages.push(newMessage);
         },
+        deleteMessage: (state, action: PayloadAction<string>) => {
+            const updatedState = state.messages.filter(
+                (msg) => msg.id !== action.payload || msg.sender.id !== state.currentUser.id
+            );
 
-        
+            state.messages = updatedState;
+        }
+
+
     }
 });
 
-export const { changeType, addMessage } = slice.actions;
+export const { changeType, addMessage, deleteMessage } = slice.actions;
 export default slice.reducer;
