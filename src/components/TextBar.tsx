@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../state/store";
 import { Message, User } from "../types/type";
-import { deleteMessage } from "../state/slice";
+import { addReaction, deleteMessage } from "../state/slice";
 import DialogueBox from "./DialogueBox";
 import { useState } from "react";
 import { formatTimestamp } from "../services/timeConverter";
@@ -15,6 +15,7 @@ const TextBar: React.FC<TextBarProps> = ({ data, currentUser }) => {
   const isCurrentUser = data.sender.id === currentUser.id;
   const dispatch: AppDispatch = useDispatch();
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleOpenDialog = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -26,9 +27,8 @@ const TextBar: React.FC<TextBarProps> = ({ data, currentUser }) => {
     setDialogOpen(false);
   };
 
-  const handleEmoji = () => {
-    console.log("Emoji action triggered");
-    // emoji logic
+  const handleEmoji = (emoji: string) => {
+    dispatch(addReaction({ messageId: data.id, emoji }));
     setDialogOpen(false);
   };
 
@@ -36,10 +36,15 @@ const TextBar: React.FC<TextBarProps> = ({ data, currentUser }) => {
     setDialogOpen(false);
   };
 
+  const handleMouseEnter = () => setIsHovered(true);
+  const handleMouseLeave = () => setIsHovered(false);
+
   return (
     <div className="max-w-[65%]">
       <div
         onContextMenu={handleOpenDialog}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
         className={`px-3 py-2 my-2 ${
           isCurrentUser
             ? "bg-cyan-300 rounded-l-2xl rounded-br-2xl rounded-tr-md text-left text-black border-2 border-black"
@@ -48,7 +53,21 @@ const TextBar: React.FC<TextBarProps> = ({ data, currentUser }) => {
       >
         <div>
           <div>{data.content}</div>
-          <div className="flex flex-row justify-end font-light text-xs">
+          <div
+            className={`flex flex-row ${
+              data.reactions.length > 0 ? "justify-between" : "justify-end"
+            } font-light text-xs`}
+          >
+            {data.reactions.length > 0 && (
+              <div className="flex flex-row">
+                {data.reactions.map((msg) => (
+                  <ul key={msg.emoji}>
+                    {msg.emoji}
+                    {isHovered && msg.count}
+                  </ul>
+                ))}
+              </div>
+            )}
             {formatTimestamp(data.timestamp)}
           </div>
         </div>

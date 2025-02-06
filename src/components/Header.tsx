@@ -42,7 +42,7 @@ const Header: React.FC = () => {
 
       <button
         onClick={handleChat}
-        className="px-6 py-2 bg-slate-200 text-black font-semibold rounded-2xl hover:bg-slate-100 border-2 border-black"
+        className="px-6 py-2 text-white font-semibold rounded-xl border border-white"
       >
         {chatType}
       </button>

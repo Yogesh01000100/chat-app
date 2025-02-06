@@ -1,8 +1,14 @@
 export type Conversation = 'private' | 'public'
+export const availableEmojis = ["😊", "👍", "🎉"];
 
 export interface User {
     id: string;
     name: string;
+}
+
+export interface Reaction {
+    emoji: string;
+    count: number;
 }
 
 export interface Message {
@@ -10,6 +16,7 @@ export interface Message {
     content: string;
     sender: User;
     timestamp: number;
+    reactions: Reaction[];
 }
 
 export interface Chat {
