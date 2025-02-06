@@ -1,28 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-
-type Conversation = 'private' | 'public'
-
-
-interface User {
-    id: string;
-    name: string;
-}
-
-interface Message {
-    id: string;
-    content: string;
-    sender: User;
-    timestamp: number;
-}
-
-interface Chat {
-    type: Conversation;
-    title: string;
-    messages: Message[];
-    users: User[];
-    currentUser: User;
-}
-
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Chat, Message } from "../types/type";
 
 const initialState: Chat = {
     type: 'private',
@@ -40,6 +17,26 @@ const slice = createSlice({
     initialState,
 
     reducers: {
+        changeType: (state) => {
+            if(state.type==='private'){
+                state.type='public';
+            }else{
+                state.type='private';
+            }
+        },
 
+        addMessage: (state, action: PayloadAction<string>) => {
+            const newMessage: Message={
+                id: Date.now().toString(), // add id 
+                content: action.payload,
+                sender: state.currentUser,
+                timestamp: Date.now(),
+            }
+
+            state.messages.push(newMessage);
+        },
     }
-})
+});
+
+export const { changeType, addMessage } = slice.actions;
+export default slice.reducer;

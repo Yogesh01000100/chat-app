@@ -1,5 +1,13 @@
+import ChatSection from "./components/ChatSection";
+import Header from "./components/Header";
+
 function App() {
-  return <div className="bg-slate-300 font-extrabold">test</div>;
+  return (
+    <div>
+      <Header/>
+      <ChatSection />
+    </div>
+  );
 }
 
 export default App;
