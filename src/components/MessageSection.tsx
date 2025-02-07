@@ -27,15 +27,20 @@ const MessageSection: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    if (data.trim()) {
-      dispatch(addMessage(data));
-      setData("");
-    }
+    dispatch(addMessage(data));
+    setData("");
   };
 
   return (
-    <div className="relative flex flex-col h-full">
-      <div className="flex-1 overflow-y-auto p-2 pb-24 scrollbar-thin scrollbar-thumb-sky-800 scrollbar-track-gray-200">
+    <div className="flex flex-col h-full">
+      <div className="flex-1 p-2 pb-24 md:px-10 lg:px-60">
+        <div className="bg-yellow-50 border border-gray-400 p-2 rounded-xl max-w-xs mx-auto mb-7 mt-2 text-center">
+          <p className="text-xs text-gray-700">
+            This is the start of the conversation.
+            <br /> Feel free to say hello, share your thoughts!
+          </p>
+        </div>
+
         {messages.map((msg) => (
           <ul key={msg.id}>
             <div
@@ -52,6 +57,7 @@ const MessageSection: React.FC = () => {
         <div ref={messagesEndRef} />
       </div>
 
+      {/* Fixed controller at the bottom */}
       <div className="fixed bottom-0 left-0 w-full bg-stone-100 z-10">
         <Controller
           data={data}

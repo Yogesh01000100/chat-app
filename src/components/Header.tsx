@@ -3,9 +3,10 @@ import { AppDispatch, RootState } from "../state/store";
 import { changeType, updateTitle } from "../state/slice";
 import { useEffect, useState } from "react";
 import { User } from "../types/type";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import EditNoteIcon from "@mui/icons-material/EditNote";
-import SaveAsIcon from "@mui/icons-material/SaveAs";
+import PersonIcon from "@mui/icons-material/Person";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
+import PeopleIcon from "@mui/icons-material/People";
 import { generateRandomTitle } from "../services/randomGenerator";
 
 const Header: React.FC = () => {
@@ -45,9 +46,7 @@ const Header: React.FC = () => {
   };
 
   const handleSaveClick = () => {
-    if (editTitle.trim()) {
-      dispatch(updateTitle(editTitle));
-    }
+    dispatch(updateTitle(editTitle));
     setIsEditing(false);
   };
 
@@ -56,11 +55,11 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="flex items-center justify-between bg-sky-900 border-b-2 border-black p-3">
+    <header className="flex items-center justify-between bg-sky-800 border-b-2 border-gray-700 p-2 pt-3">
       {chatType === "private" ? (
         <div className="flex items-center justify-center space-x-2">
-          <div className="text-4xl mb-1 text-white">
-            <AccountCircleIcon fontSize="inherit" />
+          <div className="text-white bg-gray-400 rounded-2xl px-2 py-2 border border-black">
+            <PersonIcon />
           </div>
           <div className="flex flex-col text-white">
             {otherUsers.map((user) => (
@@ -68,39 +67,53 @@ const Header: React.FC = () => {
                 {user.name}
               </div>
             ))}
-            <div className="text-sm">online</div>
+            <div className="text-xs">online</div>
           </div>
         </div>
       ) : (
-        <div className="flex items-center text-white text-md space-x-2">
+        <div className="flex mr-5 items-center text-white text-sm md:text-base text-md space-x-2">
+          <div className="bg-gray-400 rounded-xl px-3 py-2 border border-black">
+            <PeopleIcon />
+          </div>
           {isEditing ? (
-            <>
+            <div className="flex">
               <input
                 type="text"
                 value={editTitle}
                 onChange={handleTitleChange}
-                className="p-1 px-3 text-black bg-white border-2 border-black rounded-xl outline-none"
+                className="p-1 px-3 text-gray-800 text-base bg-white border-2 border-gray-800 rounded-lg outline-none"
               />
-              <button onClick={handleSaveClick} className="text-white">
-                <SaveAsIcon />
+              <button
+                onClick={handleSaveClick}
+                className="text-white p-1 ml-1 bg-slate-400 rounded-lg border border-gray-900"
+              >
+                <DoneRoundedIcon fontSize="medium" />
               </button>
-            </>
+            </div>
           ) : (
-            <>
-              <span>{currentTitle || "Public Chat Room"}</span>
-              {currentUser.role === "admin" && (
-                <button onClick={handleEditClick} className="text-white">
-                  <EditNoteIcon />
-                </button>
-              )}
-            </>
+            <div className="flex items-center space-x-2 ml-3">
+              <div className="flex items-center space-x-2 text-xs">
+                <div className="text-base text-slate-100">
+                  {currentTitle || "Public Chat Room"}
+                </div>
+
+                {currentUser.role === "admin" && (
+                  <button
+                    onClick={handleEditClick}
+                    className="text-white bg-slate-400 rounded-lg border border-gray-900 p-1"
+                  >
+                    <ModeEditIcon fontSize="small" />
+                  </button>
+                )}
+              </div>
+            </div>
           )}
         </div>
       )}
 
       <button
         onClick={handleChat}
-        className="px-6 py-2 text-white font-normal rounded-xl border-2 border-black bg-sky-700 hover:bg-sky-600"
+        className="mr-2 px-3 py-2 text-white font-normal rounded-xl border-2 border-gray-800 bg-sky-600 hover:bg-sky-500"
       >
         {chatType}
       </button>

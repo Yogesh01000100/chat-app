@@ -60,18 +60,20 @@ const TextBar: React.FC<TextBarProps> = ({ data, currentUser }) => {
     conversationType === "public" && currentUser.role === "admin";
 
   return (
-    <div className="max-w-[75%]">
+    <div className="max-w-[70%]">
       <div
         onContextMenu={handleOpenDialog}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         className={`px-3 py-2 my-2 ${
           isCurrentUser
-            ? "bg-cyan-200 rounded-l-2xl rounded-br-2xl rounded-tr-md text-left text-black border border-black"
-            : `${userColor} rounded-r-2xl rounded-bl-2xl rounded-tl-md text-left text-black border border-black`
+            ? "bg-cyan-200 rounded-l-xl rounded-br-xl rounded-tr-sm text-left text-black border border-black"
+            : `${userColor} rounded-r-xl rounded-bl-xl rounded-tl-sm text-left text-black border border-black`
         }`}
       >
-        <div className="text-xs font-semibold">{data.sender.name}</div>
+        <div className="flex flex-row text-xs font-normal">
+          {data.sender.name}
+        </div>
         <div>{data.content}</div>
         <div
           className={`flex flex-row ${
