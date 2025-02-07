@@ -1,9 +1,11 @@
 export type Conversation = 'private' | 'public'
+export type Role='admin' | 'member' | 'none'
 export const availableEmojis = ["😊", "👍", "🎉"];
 
 export interface User {
     id: string;
     name: string;
+    role: Role;
 }
 
 export interface Reaction {

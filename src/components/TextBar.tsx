@@ -49,17 +49,18 @@ const TextBar: React.FC<TextBarProps> = ({ data, currentUser }) => {
     setDialogOpen(false);
   };
 
-  const handleCloseDialog = () => {
-    setDialogOpen(false);
-  };
+  const handleCloseDialog = () => setDialogOpen(false);
 
   const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => setIsHovered(false);
 
   const userColor = userColors[data.sender.id] || "bg-green-200";
 
+  const canDeleteMessage =
+    conversationType === "public" && currentUser.role === "admin";
+
   return (
-    <div className="max-w-[70%]">
+    <div className="max-w-[75%]">
       <div
         onContextMenu={handleOpenDialog}
         onMouseEnter={handleMouseEnter}
@@ -97,7 +98,9 @@ const TextBar: React.FC<TextBarProps> = ({ data, currentUser }) => {
       >
         {dialogOpen && (
           <DialogueBox
-            onDelete={isCurrentUser ? handleDelete : undefined}
+            onDelete={
+              isCurrentUser || canDeleteMessage ? handleDelete : undefined
+            }
             onEmoji={!isCurrentUser ? handleEmoji : undefined}
             onClose={handleCloseDialog}
           />

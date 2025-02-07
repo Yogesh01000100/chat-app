@@ -10,67 +10,67 @@ const initialState: Chat = {
         {
             id: uuidv4(),
             content: "Hello everyone! Welcome to the public chat.",
-            sender: { id: '3', name: 'Sriram' },
+            sender: { id: '3', name: 'Sriram', role: 'member' },
             timestamp: Date.now(),
             reactions: [],
         },
         {
             id: uuidv4(),
             content: "Hey Sriram! Nice to see you here.",
-            sender: { id: '2', name: 'Sainath' },
+            sender: { id: '2', name: 'Sainath', role: 'member' },
             timestamp: Date.now(),
             reactions: [],
         },
         {
             id: uuidv4(),
             content: "Hi everyone, let's keep it fun and friendly!",
-            sender: { id: '4', name: 'Nitin' },
+            sender: { id: '4', name: 'Nitin', role: 'member' },
             timestamp: Date.now(),
             reactions: [],
         },
         {
             id: uuidv4(),
             content: "Doing good! Excited to see how our new assignee performs.",
-            sender: { id: '3', name: 'Sriram' },
+            sender: { id: '3', name: 'Sriram', role: 'member' },
             timestamp: Date.now(),
             reactions: [],
         },
         {
             id: uuidv4(),
             content: "Haha, no pressure! Let me know if you need anything.",
-            sender: { id: '4', name: 'Nitin' },
+            sender: { id: '4', name: 'Nitin', role: 'member' },
             timestamp: Date.now(),
             reactions: [],
         },
         {
             id: uuidv4(),
             content: "Sure thing, Nitin! Thanks. I'll give my best on this assignment.",
-            sender: { id: '1', name: 'You' },
+            sender: { id: '1', name: 'You', role: 'admin' },
             timestamp: Date.now(),
             reactions: [],
         },
         {
             id: uuidv4(),
             content: "Great! We're here to help if you have any blockers. Right, Sriram?",
-            sender: { id: '2', name: 'Sainath' },
+            sender: { id: '2', name: 'Sainath', role: 'member' },
             timestamp: Date.now(),
             reactions: [],
         },
         {
             id: uuidv4(),
             content: "Of course! Collaboration is key. Let's rock this project!",
-            sender: { id: '3', name: 'Sriram' },
+            sender: { id: '3', name: 'Sriram', role: 'member' },
             timestamp: Date.now(),
             reactions: [],
         }
     ],
     users: [
-        { id: '1', name: 'You' },
-        { id: '2', name: 'Sainath' },
-        { id: '3', name: 'Sriram' },
-        { id: '4', name: 'Nitin' }
+        { id: '1', name: 'You', role: 'admin' },
+        { id: '2', name: 'Sainath', role: 'member' },
+        { id: '3', name: 'Sriram', role: 'member' },
+        { id: '4', name: 'Nitin', role: 'member' }
     ],
-    currentUser: { id: '1', name: 'You' },
+    currentUser: { id: '1', name: 'You', role: 'admin' },
 };
 
 
@@ -83,70 +83,63 @@ const slice = createSlice({
             if (state.type === 'private') {
                 state.type = 'public';
                 state.users.push(
-                    { id: '3', name: 'Sriram' },
-                    { id: '4', name: 'Nitin' }
+                    { id: '3', name: 'Sriram', role: 'member' },
+                    { id: '4', name: 'Nitin', role: 'member' }
                 );
                 state.messages = [
                     {
                         id: uuidv4(),
                         content: "Hello everyone! Welcome to the public chat.",
-                        sender: { id: '3', name: 'Sriram' },
+                        sender: { id: '3', name: 'Sriram', role: 'member' },
                         timestamp: Date.now(),
                         reactions: [],
                     },
                     {
                         id: uuidv4(),
                         content: "Hey Sriram! Nice to see you here.",
-                        sender: { id: '2', name: 'Sainath' },
+                        sender: { id: '2', name: 'Sainath', role: 'member' },
                         timestamp: Date.now(),
                         reactions: [],
                     },
                     {
                         id: uuidv4(),
                         content: "Hi everyone, let's keep it fun and friendly!",
-                        sender: { id: '4', name: 'Nitin' },
-                        timestamp: Date.now(),
-                        reactions: [],
-                    },
-                    {
-                        id: uuidv4(),
-                        content: "Absolutely! How's everyone doing today?",
-                        sender: { id: '1', name: 'You' },
+                        sender: { id: '4', name: 'Nitin', role: 'member' },
                         timestamp: Date.now(),
                         reactions: [],
                     },
                     {
                         id: uuidv4(),
                         content: "Doing good! Excited to see how our new assignee performs.",
-                        sender: { id: '2', name: 'Sainath' },
+                        sender: { id: '2', name: 'Sainath', role: 'member' },
                         timestamp: Date.now(),
                         reactions: [],
                     },
                     {
                         id: uuidv4(),
                         content: "Haha, no pressure! Let me know if you need anything.",
-                        sender: { id: '4', name: 'Nitin' },
+                        sender: { id: '4', name: 'Nitin', role: 'member' },
                         timestamp: Date.now(),
                         reactions: [],
                     },
                     {
                         id: uuidv4(),
                         content: "Sure thing, Nitin! Thanks. I'll give my best on this assignment.",
-                        sender: { id: '1', name: 'You' },
+                        sender: { id: '1', name: 'You', role: 'admin' },
                         timestamp: Date.now(),
                         reactions: [],
                     },
                     {
                         id: uuidv4(),
                         content: "Great! We're here to help if you have any blockers. Right, Sriram?",
-                        sender: { id: '2', name: 'Sainath' },
+                        sender: { id: '2', name: 'Sainath', role: 'member' },
                         timestamp: Date.now(),
                         reactions: [],
                     },
                     {
                         id: uuidv4(),
                         content: "Of course! Collaboration is key. Let's rock this project!",
-                        sender: { id: '3', name: 'Sriram' },
+                        sender: { id: '3', name: 'Sriram', role: 'member' },
                         timestamp: Date.now(),
                         reactions: [],
                     }
@@ -155,42 +148,42 @@ const slice = createSlice({
             } else {
                 state.type = 'private';
                 state.users = [
-                    { id: '1', name: 'You' },
-                    { id: '2', name: 'Sainath' },
+                    { id: '1', name: 'You', role: 'none' },
+                    { id: '2', name: 'Sainath', role: 'none' },
                 ]
                 state.messages = [
                     {
                         id: uuidv4(),
                         content: "Hey there, how's your day going?",
-                        sender: { id: '2', name: 'Sainath' },
+                        sender: { id: '2', name: 'Sainath', role: 'none' },
                         timestamp: Date.now(),
                         reactions: [],
                     },
                     {
                         id: uuidv4(),
                         content: "It's going pretty well! Just finished a new painting.",
-                        sender: { id: '1', name: 'You' },
+                        sender: { id: '1', name: 'You', role: 'none' },
                         timestamp: Date.now(),
                         reactions: [],
                     },
                     {
                         id: uuidv4(),
                         content: "That sounds awesome! Can't wait to see it.",
-                        sender: { id: '2', name: 'Sainath' },
+                        sender: { id: '2', name: 'Sainath', role: 'none' },
                         timestamp: Date.now(),
                         reactions: [],
                     },
                     {
                         id: uuidv4(),
                         content: "Sure, I'll send you a photo soon.",
-                        sender: { id: '1', name: 'You' },
+                        sender: { id: '1', name: 'You', role: 'none' },
                         timestamp: Date.now(),
                         reactions: [],
                     },
                     {
                         id: uuidv4(),
                         content: "Perfect, looking forward to it!",
-                        sender: { id: '2', name: 'Sainath' },
+                        sender: { id: '2', name: 'Sainath', role: 'none' },
                         timestamp: Date.now(),
                         reactions: [],
                     },
@@ -211,7 +204,7 @@ const slice = createSlice({
         },
         deleteMessage: (state, action: PayloadAction<string>) => {
             const updatedState = state.messages.filter(
-                (msg) => msg.id !== action.payload || msg.sender.id !== state.currentUser.id
+                (msg) => msg.id !== action.payload
             );
 
             state.messages = updatedState;
@@ -235,10 +228,15 @@ const slice = createSlice({
                     message.reactions.push({ emoji, count: 1 });
                 }
             }
+        },
+        updateTitle: (state, action: PayloadAction<string>) => {
+            if (state.type === 'public' && state.currentUser.role === 'admin') {
+                state.title = action.payload;
+            }
         }
 
     }
 });
 
-export const { changeType, addMessage, deleteMessage, addReaction } = slice.actions;
+export const { changeType, addMessage, deleteMessage, addReaction, updateTitle } = slice.actions;
 export default slice.reducer;
