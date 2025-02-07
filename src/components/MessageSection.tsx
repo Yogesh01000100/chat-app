@@ -52,7 +52,7 @@ const MessageSection: React.FC = () => {
         <div ref={messagesEndRef} />
       </div>
 
-      <div className="fixed bottom-0 left-0 w-full bg-yellow-200 z-10">
+      <div className="fixed bottom-0 left-0 w-full bg-stone-100 z-10">
         <Controller
           data={data}
           onChange={handleMessages}

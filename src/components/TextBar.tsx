@@ -1,10 +1,11 @@
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../state/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../state/store";
 import { Message, User } from "../types/type";
 import { addReaction, deleteMessage } from "../state/slice";
 import DialogueBox from "./DialogueBox";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { formatTimestamp } from "../services/timeConverter";
+import { getRandomColors } from "../services/randomGenerator";
 
 interface TextBarProps {
   data: Message;
@@ -13,9 +14,25 @@ interface TextBarProps {
 
 const TextBar: React.FC<TextBarProps> = ({ data, currentUser }) => {
   const isCurrentUser = data.sender.id === currentUser.id;
+  const conversationType = useSelector((state: RootState) => state.main.type);
+  const users = useSelector((state: RootState) => state.main.users);
   const dispatch: AppDispatch = useDispatch();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+
+  const userColors = useMemo(() => {
+    if (conversationType === "public") {
+      const colors = getRandomColors();
+      const colorMap: Record<string, string> = {};
+
+      users.forEach((user, index) => {
+        colorMap[user.id] = colors[index % colors.length];
+      });
+
+      return colorMap;
+    }
+    return {};
+  }, [conversationType, users]);
 
   const handleOpenDialog = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -39,37 +56,38 @@ const TextBar: React.FC<TextBarProps> = ({ data, currentUser }) => {
   const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => setIsHovered(false);
 
+  const userColor = userColors[data.sender.id] || "bg-green-200";
+
   return (
-    <div className="max-w-[65%]">
+    <div className="max-w-[70%]">
       <div
         onContextMenu={handleOpenDialog}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         className={`px-3 py-2 my-2 ${
           isCurrentUser
-            ? "bg-cyan-300 rounded-l-2xl rounded-br-2xl rounded-tr-md text-left text-black border-2 border-black"
-            : "bg-slate-300 rounded-r-2xl rounded-bl-2xl rounded-tl-md text-left text-black border-2 border-black"
+            ? "bg-cyan-200 rounded-l-2xl rounded-br-2xl rounded-tr-md text-left text-black border border-black"
+            : `${userColor} rounded-r-2xl rounded-bl-2xl rounded-tl-md text-left text-black border border-black`
         }`}
       >
-        <div>
-          <div>{data.content}</div>
-          <div
-            className={`flex flex-row ${
-              data.reactions.length > 0 ? "justify-between" : "justify-end"
-            } font-light text-xs`}
-          >
-            {data.reactions.length > 0 && (
-              <div className="flex flex-row">
-                {data.reactions.map((msg) => (
-                  <ul key={msg.emoji}>
-                    {msg.emoji}
-                    {isHovered && msg.count}
-                  </ul>
-                ))}
-              </div>
-            )}
-            {formatTimestamp(data.timestamp)}
-          </div>
+        <div className="text-xs font-semibold">{data.sender.name}</div>
+        <div>{data.content}</div>
+        <div
+          className={`flex flex-row ${
+            data.reactions.length > 0 ? "justify-between" : "justify-end"
+          } font-light text-xs`}
+        >
+          {data.reactions.length > 0 && (
+            <div className="flex flex-row">
+              {data.reactions.map((msg) => (
+                <ul key={msg.emoji}>
+                  {msg.emoji}
+                  {isHovered && msg.count}
+                </ul>
+              ))}
+            </div>
+          )}
+          {formatTimestamp(data.timestamp)}
         </div>
       </div>
       <div
