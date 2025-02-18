@@ -72,7 +72,7 @@ const Header: React.FC = () => {
         </div>
       ) : (
         <div className="flex mr-5 items-center text-white text-sm md:text-base text-md space-x-2">
-          <div className="bg-gray-400 rounded-xl px-3 py-2 border border-black">
+          <div className="bg-gray-400 rounded-2xl px-3 py-2 border border-black">
             <PeopleIcon />
           </div>
           {isEditing ? (
@@ -85,7 +85,7 @@ const Header: React.FC = () => {
               />
               <button
                 onClick={handleSaveClick}
-                className="text-white p-1 ml-1 bg-slate-400 rounded-lg border border-gray-900"
+                className="text-white ml-1 bg-slate-400 hover:bg-slate-300 rounded-2xl border border-gray-900 px-1"
               >
                 <DoneRoundedIcon fontSize="medium" />
               </button>
@@ -100,7 +100,7 @@ const Header: React.FC = () => {
                 {currentUser.role === "admin" && (
                   <button
                     onClick={handleEditClick}
-                    className="text-white bg-slate-400 rounded-lg border border-gray-900 p-1"
+                    className="text-white bg-slate-400 hover:bg-slate-300 rounded-2xl border border-gray-900 p-1"
                   >
                     <ModeEditIcon fontSize="small" />
                   </button>
